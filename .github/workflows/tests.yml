@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        project: [project-one, project-two]
+        project: [docs, web]
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
