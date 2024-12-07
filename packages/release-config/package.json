@@ -7,8 +7,6 @@
     "semantic-release": "^21.0.7"
   },
   "devDependencies": {
-    "eslint-config": "^1.0.0",
-    "prettier-config": "^1.0.0"
   },
   "scripts": {},
   "keywords": [],
