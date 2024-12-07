@@ -38,6 +38,6 @@ jobs:
           npm i
           fi
       - name: Run Tests
-        run: npm test -- --filter="{${{ matrix.project }}}..."
+        run: npm test --filter="{${{ matrix.project }}}"
         env:
           CI: true
