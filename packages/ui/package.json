@@ -9,13 +9,15 @@
     "./code": "./src/code.tsx"
   },
   "scripts": {
-    "lint": "eslint . --max-warnings 0",
+    "lint": "npm run eslint",
+    "lint:scripts": "cross-env TIMING=1 eslint --ext .ts,.tsx .",
+    "lint:styles": "stylelint \"src/**/*.css\"",
     "generate:component": "turbo gen react-component",
     "check-types": "tsc --noEmit"
   },
   "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
+    "eslint-config": "*",
+    "typescript-config": "*",
     "@turbo/gen": "^1.12.4",
     "@types/node": "^20.11.24",
     "@types/react": "18.3.0",
