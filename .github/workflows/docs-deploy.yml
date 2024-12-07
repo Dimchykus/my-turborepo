@@ -86,10 +86,13 @@ jobs:
       - name: Checkout Target Repository
         uses: actions/checkout@v4
         with:
-          repository: dimchykus/CI-CD # Replace with the target repository (e.g., "username/target-repo")
+          repository: dimchykus/CI-CD
           token: ${{ secrets.DOCS_DEPLOY_REPO_KEY }}
-          ref: main # Use the appropriate branch for the target repository
-
+          ref: main
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          personal_token: ${{ secrets.DOCS_DEPLOY_REPO_KEY }}
+          deploy_branch: gh-pages
+          folder: ./apps/docs/out
