@@ -20,6 +20,10 @@
     "shared": "*"
   },
   "devDependencies": {
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "@testing-library/jest-dom": "6.1.5",
     "@testing-library/react": "15.0.6",
     "@types/jest": "29.5.11",
@@ -28,8 +32,6 @@
     "cross-env": "^7.0.3",
     "jest": "29.7.0",
     "jest-environment-jsdom": "29.7.0",
-    "typescript": "5.3.3",
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*"
+    "typescript": "5.3.3"
   }
 }

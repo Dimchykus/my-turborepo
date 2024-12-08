@@ -1,0 +1,59 @@
+name: "Main"
+on:
+  push:
+    paths:
+      - packages/ui/**/*.{js,jsx,ts,tsx}
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: [docs, web]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+      - name: Install dependencies
+        run: |
+          if [ -e yarn.lock ]; then
+          yarn install --frozen-lockfile
+          elif [ -e package-lock.json ]; then
+          npm ci
+          else
+          npm i
+          fi
+      - name: Run Linters
+        run: npm run lint --filter="{${{ matrix.project }}}"
+        env:
+          CI: true
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: [docs, web, api]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".npmrc"
+          cache: "npm"
+      - name: Install dependencies
+        run: |
+          if [ -e yarn.lock ]; then
+          yarn install --frozen-lockfile
+          elif [ -e package-lock.json ]; then
+          npm ci
+          else
+          npm i
+          fi
+      - name: Run Tests
+        run: npm test --filter="{${{ matrix.project }}}"
+        env:
+          CI: true
