@@ -7,7 +7,7 @@ on:
   # Runs on pushes targeting the default branch
   push:
     paths:
-      - app/api/**/*.{js,jsx,ts,tsx}
+      - apps/api/**/*.{js,jsx,ts,tsx}
 
   workflow_dispatch:
 

@@ -4,7 +4,7 @@ on:
   # Runs on pushes targeting the default branch
   push:
     paths:
-      - app/web/**/*.{js,jsx,ts,tsx}
+      - apps/web/**/*.{js,jsx,ts,tsx}
 
   workflow_dispatch:
 
