@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - packages/ui/**/*.{js,jsx,ts,tsx}
+  workflow_dispatch:
+
 jobs:
   lint:
     runs-on: ubuntu-latest

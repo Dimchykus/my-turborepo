@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - apps/docs/**/*.{js,jsx,ts,tsx}
+  workflow_dispatch:
+
 jobs:
   lint:
     runs-on: ubuntu-latest
