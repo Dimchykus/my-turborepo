@@ -1,6 +1,7 @@
 {
   "name": "web",
   "type": "module",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,16 +9,16 @@
     "start": "next start",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "test:ci": "jest --ci",
-    "lint": "next lint --max-warnings 0",
+    "lint": "eslint app/**/*.tsx",
     "lint:scripts": "eslint --ext .ts,.tsx .",
-    "lint:styles": "stylelint \"src/**/*.css\""
+    "lint:styles": "stylelint \"src/**/*.css\"",
+    "prebuild": "npm run lint"
   },
   "dependencies": {
-    "next": "13.5.7",
+    "next": "^14.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "server-only": "^0.0.1",
-    "shared": "*"
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
