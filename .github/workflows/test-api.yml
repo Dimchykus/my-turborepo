@@ -1,4 +1,4 @@
-name: "Main"
+name: "Test Api app"
 on:
   push:
     paths:
