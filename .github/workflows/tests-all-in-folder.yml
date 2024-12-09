@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        folder: ${{ fromJson(needs.find-jobs.outputs.folders )}}
+        folder: ${{ fromJson(needs.find-project-folders.outputs.folders )}}
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node.js
