@@ -1,9 +1,10 @@
 name: Deploy Web to Pages
 
 on:
-  push:
-    paths:
-      - apps/web/**/*.{js,jsx,ts,tsx}
+  workflow_run:
+    workflows: ["Test Web app"]
+    types:
+      - completed
 
   workflow_dispatch:
 

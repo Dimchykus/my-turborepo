@@ -4,10 +4,10 @@ env:
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_API_PROJECT_ID }}
 
 on:
-  # Runs on pushes targeting the default branch
-  push:
-    paths:
-      - apps/api/**/*.{js,jsx,ts,tsx}
+  workflow_run:
+    workflows: ["Test Api app"]
+    types:
+      - completed
 
   workflow_dispatch:
 

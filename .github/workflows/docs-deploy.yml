@@ -1,10 +1,10 @@
 name: Deploy Docs to Pages
 
 on:
-  # Runs on pushes targeting the default branch
-  push:
-    paths:
-      - apps/web/**/*.{js,jsx,ts,tsx}
+  workflow_run:
+    workflows: ["Test Docs app"]
+    types:
+      - completed
 
   workflow_dispatch:
 
