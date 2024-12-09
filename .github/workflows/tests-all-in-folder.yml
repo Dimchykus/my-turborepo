@@ -1,4 +1,4 @@
-name: "Test all projects"
+name: "Test all projects by folder names"
 on:
   push:
     paths:
@@ -6,29 +6,28 @@ on:
   workflow_dispatch:
 
 jobs:
-  generate-matrix:
+  find-project-folders:
+    name: Find Jobs
     runs-on: ubuntu-latest
+    container: debian:buster-slim
     outputs:
-      folders: ${{ steps.set-matrix.outputs.matrix }}
+      folders: ${{ steps.set-folders.outputs.folders }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Generate matrix from ./apps/
-        id: set-matrix
+      - uses: actions/checkout@v1
+      - id: set-folders
         run: |
-          # Get folder names in the ./apps/ directory
-          FOLDERS=$(ls -d ./apps/*/ | sed 's:/*$::' | sed 's:./apps/::')
-          # Convert to JSON array format
-          JSON=$(printf '%s\n' "$FOLDERS" | jq -R . | jq -s .)
-          echo "matrix=$JSON" >> $GITHUB_OUTPUT
+          apt update && apt install tree jq -y
+          cd ./apps
+          folders=$(tree -J -d -L 1 | jq -c '.[0].contents | map(.name)')
+          echo $folders
+          echo "folders=$folders" >> $GITHUB_OUTPUT
 
   test:
-    needs: generate-matrix
+    needs: find-project-folders
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        folder: ${{ fromJson(needs.generate-matrix.outputs.folders) }}
+        folder: ${{ fromJson(needs.find-jobs.outputs.folders )}}
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node.js
