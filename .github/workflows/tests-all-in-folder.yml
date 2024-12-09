@@ -1,0 +1,51 @@
+name: "Test all projects"
+on:
+  push:
+    paths:
+      - packages/ui/**/*.{js,jsx,ts,tsx}
+  workflow_dispatch:
+
+jobs:
+  generate-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      folders: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Generate matrix from ./apps/
+        id: set-matrix
+        run: |
+          # Get folder names in the ./apps/ directory
+          FOLDERS=$(ls -d ./apps/*/ | sed 's:/*$::' | sed 's:./apps/::')
+          # Convert to JSON array format
+          JSON=$(printf '%s\n' "$FOLDERS" | jq -R . | jq -s .)
+          echo "matrix=$JSON" >> $GITHUB_OUTPUT
+
+  test:
+    needs: generate-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        folder: ${{ fromJson(needs.generate-matrix.outputs.folders) }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".npmrc"
+          cache: "npm"
+      - name: Install dependencies
+        run: |
+          if [ -e yarn.lock ]; then
+          yarn install --frozen-lockfile
+          elif [ -e package-lock.json ]; then
+          npm ci
+          else
+          npm i
+          fi
+      - name: Run Tests
+        run: npm test --filter="{${{ matrix.project }}}"
+        env:
+          CI: true
