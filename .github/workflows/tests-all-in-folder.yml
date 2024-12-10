@@ -1,13 +1,11 @@
 name: "Test all projects by folder names"
+
 on:
-  push:
-    paths:
-      - packages/ui/**/*.{js,jsx,ts,tsx}
   workflow_dispatch:
 
 jobs:
   find-project-folders:
-    name: Find Jobs
+    name: Get all projects
     runs-on: ubuntu-latest
     container: debian:buster-slim
     outputs:
@@ -24,6 +22,7 @@ jobs:
 
   test:
     needs: find-project-folders
+    name: Test all projects
     runs-on: ubuntu-latest
     strategy:
       matrix:
