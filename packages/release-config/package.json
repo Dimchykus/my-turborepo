@@ -6,8 +6,7 @@
   "dependencies": {
     "semantic-release": "^21.0.7"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "scripts": {},
   "keywords": [],
   "author": "",
