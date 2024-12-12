@@ -1,0 +1,30 @@
+name: "Test"
+on:
+  push:
+    paths:
+      - packages/ui/**/*.{js,jsx,ts,tsx}
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".npmrc"
+          cache: "npm"
+      - name: Install dependencies
+        run: |
+          if [ -e yarn.lock ]; then
+          yarn install --frozen-lockfile
+          elif [ -e package-lock.json ]; then
+          npm ci
+          else
+          npm i
+          fi
+      - name: Run Tests
+        run: npm test"
+        env:
+          CI: true
